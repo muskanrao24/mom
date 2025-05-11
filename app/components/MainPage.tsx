@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Cake from "./Cake";
 import WelcomeScreen from "./WelcomeScreen";
 import { PopperAnimationProvider } from "../context/PopperContext";
-import { ConfigProvider } from "../context/ConfigContext";
+import { ConfigProvider, useConfig } from "../context/ConfigContext";
 
 export default function MothersDay() {
   const [showCake, setShowCake] = useState(false);
+  const [glowColor, setGlowColor] = useState("#FFA500");
+  const { get } = useConfig();
+
+  useEffect(() => {
+    const storedGlowColor = get("background_color", "#FFA500");
+    setGlowColor(storedGlowColor);
+  }, []);
 
   const handleContinue = () => {
     setShowCake(true);
@@ -36,7 +43,7 @@ export default function MothersDay() {
               <WelcomeScreen
                 key="welcome"
                 onContinue={handleContinue}
-                glowColor="#FFA500"
+                glowColor={glowColor}
               />
             ) : (
               <Cake key="cake" />

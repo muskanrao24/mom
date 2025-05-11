@@ -92,9 +92,21 @@ export default function Cake() {
 
       <motion.div
         className="cake-container"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
+        initial={{ opacity: 0, scale: 0.8, y: "-50%", x: "-50%" }}
+        animate={{
+          opacity: 1,
+          scale: triggered ? 1.6 : 2,
+          top: triggered ? "55%" : "50%",
+        }}
+        style={{
+          position: "absolute",
+          width: "250px",
+          height: "200px",
+          top: "50%",
+          left: "50%",
+          transformOrigin: "center center",
+        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div className="cake">
           <div className="plate" />

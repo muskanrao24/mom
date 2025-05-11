@@ -14,17 +14,17 @@ $cake-scale: 2 !default;
     0 30px 0px darken($color, 10.8%);
 }
 
-.cake {
-  position: absolute;
-  width: 250px;
-  height: 200px;
-  top: 50%;
-  left: 50%;
-  transform: scale($cake-scale);
-  transform-origin: center center;
-  margin-top: -70px;
-  margin-left: -125px;
-}
+// .cake {
+//   position: absolute;
+//   width: 250px;
+//   height: 200px;
+//   top: 50%;
+//   left: 50%;
+//   transform: scale($cake-scale);
+//   transform-origin: center center;
+//   margin-top: -70px;
+//   margin-left: -125px;
+// }
 
 .plate {
   width: 270px;

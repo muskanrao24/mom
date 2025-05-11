@@ -12,13 +12,14 @@ export default function CakeOverlay({
   onRestart,
 }: CakeOverlayProps) {
   const [greetingsText, setGreetingsText] = useState("");
+  const [subGreetingsText, setSubGreetingsText] = useState("");
   const { get } = useConfig();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedText = get("greetings_text", "Happy Mother's Day!");
-      setGreetingsText(storedText);
-    }
+    const storedText = get("greetings_text", "Happy Mother's Day Ma!!");
+    const storedSubText = get("sub_greetings_text", "You're the best!");
+    setSubGreetingsText(storedSubText);
+    setGreetingsText(storedText);
   }, []);
 
   return (
@@ -59,6 +60,22 @@ export default function CakeOverlay({
             }}
           >
             {greetingsText}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.7 }}
+            style={{
+              fontSize: "1.25rem",
+              color: "#ffdef0",
+              textAlign: "center",
+              marginTop: "1rem",
+              maxWidth: "80%",
+              textShadow: "0 0 6px rgba(255, 105, 180, 0.4)",
+            }}
+          >
+            {subGreetingsText}
           </motion.div>
 
           <motion.button

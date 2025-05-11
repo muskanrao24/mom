@@ -10,6 +10,7 @@ type Config = {
   sender_name?: string;
   welcome_message?: string;
   greetings_text?: string;
+  sub_greetings_text?: string;
   background_color?: string;
 };
 

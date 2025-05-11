@@ -17,8 +17,8 @@ export default function Cake() {
   const [triggered, setTriggered] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
-  const triggerCooldown = 0.5; // seconds
-  const threshold = 0.18; // Minimum blow strength to trigger the popper
+  const triggerCooldown = 0.4; // seconds
+  const threshold = 0.15; // Minimum blow strength to trigger the popper
 
   // Set isReady after a short delay to allow entrance animation to complete
   useEffect(() => {

@@ -96,7 +96,7 @@ export default function Cake() {
         animate={{
           opacity: 1,
           scale: triggered ? 1.6 : 2,
-          top: triggered ? "55%" : "50%",
+          top: triggered ? "58%" : "50%",
         }}
         style={{
           position: "absolute",

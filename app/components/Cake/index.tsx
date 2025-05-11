@@ -3,7 +3,7 @@ import "./Cake.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSoundDetection } from "@/app/hooks/useSoundDetection";
 import Candle from "./Candle";
-import { usePopperAnimation } from "../Popper/PopperContext";
+import { usePopperAnimation } from "../../context/PopperContext";
 import CakeOverlay from "../TriggerOverlay";
 import ConfettiCanvas from "../TopdownConfetti";
 
@@ -131,7 +131,7 @@ export default function Cake() {
             textShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
           }}
         >
-          Blow on your microphone to blow out the candle!
+          Blow out the candle!
         </motion.p>
       )}
       <AnimatePresence>

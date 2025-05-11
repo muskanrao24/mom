@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useConfig } from "../context/ConfigContext";
 
 export type CakeOverlayProps = {
   isVisible: boolean;
@@ -11,11 +12,11 @@ export default function CakeOverlay({
   onRestart,
 }: CakeOverlayProps) {
   const [greetingsText, setGreetingsText] = useState("");
+  const { get } = useConfig();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedText =
-        localStorage.getItem("greetings_text") || "Happy Mother's Day!";
+      const storedText = get("greetings_text", "Happy Mother's Day!");
       setGreetingsText(storedText);
     }
   }, []);

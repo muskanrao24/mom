@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useConfig } from "../context/ConfigContext";
 
 export type WelcomeScreenProps = {
   onContinue: () => void;
@@ -12,16 +13,15 @@ export default function WelcomeScreen({
 }: WelcomeScreenProps) {
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [senderName, setSenderName] = useState("");
+  const { get } = useConfig();
 
   const headingGlowControls = useAnimation();
   const buttonGlowControls = useAnimation();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedName =
-        localStorage.getItem("sender_name") || "Someone special";
-      const storedMessage =
-        localStorage.getItem("welcome_message") || "has a surprise for you";
+      const storedName = get("sender_name", "Someone special");
+      const storedMessage = get("welcome_message", "has a surprise for you");
       setSenderName(storedName);
       setWelcomeMessage(storedMessage);
     }

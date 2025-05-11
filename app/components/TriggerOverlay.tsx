@@ -17,7 +17,7 @@ export default function CakeOverlay({
   const { get } = useConfig();
 
   useEffect(() => {
-    setGreetingsText(get("greetings_text", "Happy Mother's Day Ma!!"));
+    setGreetingsText(get("greetings_text", "Happy Mother's Day Mumma!!"));
     setSubGreetingsText(get("sub_greetings_text", "You're the best!"));
     setGlowColor(get("background_color", "#FF69B4"));
   }, []);

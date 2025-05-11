@@ -13,14 +13,27 @@ export default function CakeOverlay({
 }: CakeOverlayProps) {
   const [greetingsText, setGreetingsText] = useState("");
   const [subGreetingsText, setSubGreetingsText] = useState("");
+  const [glowColor, setGlowColor] = useState("#FF69B4");
   const { get } = useConfig();
 
   useEffect(() => {
-    const storedText = get("greetings_text", "Happy Mother's Day Ma!!");
-    const storedSubText = get("sub_greetings_text", "You're the best!");
-    setSubGreetingsText(storedSubText);
-    setGreetingsText(storedText);
+    setGreetingsText(get("greetings_text", "Happy Mother's Day Ma!!"));
+    setSubGreetingsText(get("sub_greetings_text", "You're the best!"));
+    setGlowColor(get("background_color", "#FF69B4"));
   }, []);
+
+  // Utility: convert hex to rgba with opacity
+  const hexToRgba = (hex: string, alpha: number) => {
+    const raw = hex.replace("#", "");
+    const bigint = parseInt(raw, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
+  const glowRGBA = hexToRgba(glowColor, 0.7);
+  const glowRGBA_faint = hexToRgba(glowColor, 0.4);
 
   return (
     <AnimatePresence>
@@ -37,8 +50,10 @@ export default function CakeOverlay({
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background:
-              "radial-gradient(circle at center, rgba(255,182,193,0.2), transparent 70%)",
+            background: `radial-gradient(circle at center, ${hexToRgba(
+              glowColor,
+              0.15
+            )}, transparent 70%)`,
             pointerEvents: "none",
             zIndex: 10,
             padding: "2rem",
@@ -54,7 +69,7 @@ export default function CakeOverlay({
               fontWeight: 700,
               color: "#fff",
               textAlign: "center",
-              textShadow: "0 0 10px rgba(255, 105, 180, 0.7)",
+              textShadow: `0 0 10px ${glowRGBA}`,
               marginTop: "4rem",
               animation: "float 4s ease-in-out infinite",
             }}
@@ -72,7 +87,7 @@ export default function CakeOverlay({
               textAlign: "center",
               marginTop: "1rem",
               maxWidth: "80%",
-              textShadow: "0 0 6px rgba(255, 105, 180, 0.4)",
+              textShadow: `0 0 6px ${glowRGBA_faint}`,
             }}
           >
             {subGreetingsText}
@@ -87,7 +102,7 @@ export default function CakeOverlay({
             style={{
               padding: "0.5rem 1rem",
               fontSize: "0.75rem",
-              backgroundColor: "#FF69B4",
+              backgroundColor: glowColor,
               color: "#fff",
               border: "none",
               borderRadius: "10px",
@@ -97,21 +112,21 @@ export default function CakeOverlay({
               marginBottom: "1rem",
               animation: "pulse 2s ease-in-out infinite",
               boxShadow: `
-      0 0 5px #ff69b4,
-      0 0 10px #ff69b4,
-      0 0 20px #ff69b4,
-      0 0 30px rgba(255, 105, 180, 0.6)
-    `,
+                0 0 5px ${glowColor},
+                0 0 10px ${glowColor},
+                0 0 20px ${glowColor},
+                0 0 30px ${glowRGBA}
+              `,
               transition: "transform 0.2s, box-shadow 0.2s",
             }}
             whileHover={{
               scale: 1.1,
               boxShadow: `
-      0 0 6px #ff69b4,
-      0 0 12px #ff69b4,
-      0 0 24px #ff69b4,
-      0 0 36px rgba(255, 105, 180, 0.8)
-    `,
+                0 0 6px ${glowColor},
+                0 0 12px ${glowColor},
+                0 0 24px ${glowColor},
+                0 0 36px ${glowRGBA}
+              `,
             }}
             whileTap={{ scale: 0.9 }}
           >
@@ -133,13 +148,13 @@ export default function CakeOverlay({
             }
             @keyframes pulse {
               0% {
-                box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.5);
+                box-shadow: 0 0 0 0 ${glowRGBA};
               }
               70% {
-                box-shadow: 0 0 0 10px rgba(255, 105, 180, 0);
+                box-shadow: 0 0 0 10px ${hexToRgba(glowColor, 0)};
               }
               100% {
-                box-shadow: 0 0 0 0 rgba(255, 105, 180, 0);
+                box-shadow: 0 0 0 0 ${hexToRgba(glowColor, 0)};
               }
             }
           `}</style>

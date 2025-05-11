@@ -9,7 +9,7 @@ import ConfettiCanvas from "../TopdownConfetti";
 
 export default function Cake() {
   const { blowStrength, startListening } = useSoundDetection({
-    smoothingFactor: 0.625,
+    smoothingFactor: 0.4,
     threshold: 0.2,
   });
   const triggerTimer = useRef<NodeJS.Timeout | null>(null);
@@ -17,7 +17,7 @@ export default function Cake() {
   const [triggered, setTriggered] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
-  const triggerCooldown = 0.4; // seconds
+  const triggerCooldown = 0.5; // seconds
   const threshold = 0.15; // Minimum blow strength to trigger the popper
 
   // Set isReady after a short delay to allow entrance animation to complete

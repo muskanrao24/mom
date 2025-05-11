@@ -6,15 +6,19 @@ import React, {
   ReactNode,
 } from "react";
 
+export const ConfigKeys = [
+  "sender_name",
+  "welcome_message",
+  "greetings_text",
+  "sub_greetings_text",
+  "background_color",
+] as const;
+
 type Config = {
-  sender_name?: string;
-  welcome_message?: string;
-  greetings_text?: string;
-  sub_greetings_text?: string;
-  background_color?: string;
+  [K in (typeof ConfigKeys)[number]]: string | undefined;
 };
 
-type ConfigKey = keyof Config;
+type ConfigKey = (typeof ConfigKeys)[number];
 
 interface ConfigContextType {
   get: <T extends ConfigKey>(
@@ -29,19 +33,22 @@ const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [config, setConfig] = useState<Config>(() => {
     if (typeof window !== "undefined") {
-      const keys: ConfigKey[] = [
-        "sender_name",
-        "welcome_message",
-        "background_color",
-      ];
-      const result: Config = {};
+      // Get all keys from localStorage
+      const keys = Object.keys(localStorage).filter((key) =>
+        key.startsWith("app_config_")
+      );
+      // Map the keys to their corresponding values
+      const result: Config = {} as Config;
       keys.forEach((key) => {
-        const value = localStorage.getItem(`app_config_${key}`);
-        if (value !== null) result[key] = value;
+        const configKey = key.replace("app_config_", "") as ConfigKey;
+        const value = localStorage.getItem(key);
+        if (value) {
+          result[configKey] = value;
+        }
       });
       return result;
     }
-    return {};
+    return {} as Config;
   });
 
   const get = <T extends ConfigKey>(

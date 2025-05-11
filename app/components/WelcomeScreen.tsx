@@ -4,15 +4,12 @@ import { useConfig } from "../context/ConfigContext";
 
 export type WelcomeScreenProps = {
   onContinue: () => void;
-  glowColor?: string; // Accepts any CSS color (e.g., "#FF69B4", "cyan")
 };
 
-export default function WelcomeScreen({
-  onContinue,
-  glowColor = "#FF69B4", // Default to pink if not provided
-}: WelcomeScreenProps) {
+export default function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [senderName, setSenderName] = useState("");
+  const [glowColor, setGlowColor] = useState("#FFA500");
   const { get } = useConfig();
 
   const headingGlowControls = useAnimation();
@@ -22,6 +19,8 @@ export default function WelcomeScreen({
     if (typeof window !== "undefined") {
       const storedName = get("sender_name", "Someone special");
       const storedMessage = get("welcome_message", "has a surprise for you");
+      const storedGlowColor = get("background_color", "#FFA500");
+      setGlowColor(storedGlowColor);
       setSenderName(storedName);
       setWelcomeMessage(storedMessage);
     }

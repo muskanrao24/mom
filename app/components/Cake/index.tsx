@@ -33,7 +33,6 @@ export default function Cake() {
   const triggerPopper = usePopperAnimation();
 
   useEffect(() => {
-    console.log("Blow strength:", blowStrength);
     if (blowStrength > threshold && !triggered && isReady) {
       // Trigger the true state in triggerCooldown seconds
       if (!triggerTimer.current)
